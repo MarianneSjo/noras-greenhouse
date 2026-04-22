@@ -1,8 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nora's Greenhouse — A hobby garden in Norway</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;600;700&family=Fraunces:ital,wght@0,400;0,500;0,600;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
   * { box-sizing: border-box; margin: 0; padding: 0; }
-  
-  @import url('https://fonts.googleapis.com/css2?family=Caveat:wght@400;600;700&family=Fraunces:ital,wght@0,400;0,500;0,600;1,400&family=Inter:wght@300;400;500;600&display=swap');
-  
+
   :root {
     --leaf: #4a7c59;
     --leaf-dark: #2d4a35;
@@ -17,7 +24,7 @@
     --ink: #1a1a1a;
     --muted: #6b7365;
   }
-  
+
   body {
     font-family: 'Inter', sans-serif;
     background: var(--cream);
@@ -25,7 +32,7 @@
     line-height: 1.6;
     overflow-x: hidden;
   }
-  
+
   /* Hero */
   .hero {
     min-height: 100vh;
@@ -37,34 +44,34 @@
     padding: 2rem;
     overflow: hidden;
   }
-  
+
   .hero::before {
     content: '';
     position: absolute;
     inset: 0;
-    background-image: 
+    background-image:
       radial-gradient(circle at 10% 20%, rgba(127, 166, 140, 0.15) 0%, transparent 40%),
       radial-gradient(circle at 90% 80%, rgba(74, 124, 89, 0.15) 0%, transparent 40%);
   }
-  
+
   .leaf-decoration {
     position: absolute;
     opacity: 0.15;
     pointer-events: none;
   }
-  
+
   .leaf-decoration.top-left { top: 5%; left: 5%; transform: rotate(-20deg); }
   .leaf-decoration.top-right { top: 8%; right: 8%; transform: rotate(30deg); }
   .leaf-decoration.bot-left { bottom: 10%; left: 10%; transform: rotate(200deg); }
   .leaf-decoration.bot-right { bottom: 5%; right: 5%; transform: rotate(160deg); }
-  
+
   .hero-content {
     text-align: center;
     position: relative;
     z-index: 2;
     max-width: 800px;
   }
-  
+
   .hero-greeting {
     font-family: 'Caveat', cursive;
     font-size: clamp(1.5rem, 3vw, 2rem);
@@ -73,7 +80,7 @@
     transform: rotate(-2deg);
     display: inline-block;
   }
-  
+
   .hero-title {
     font-family: 'Fraunces', serif;
     font-size: clamp(3rem, 8vw, 6rem);
@@ -83,13 +90,13 @@
     margin-bottom: 1.5rem;
     letter-spacing: -0.02em;
   }
-  
+
   .hero-title em {
     font-style: italic;
     font-weight: 400;
     color: var(--leaf);
   }
-  
+
   .hero-subtitle {
     font-family: 'Fraunces', serif;
     font-style: italic;
@@ -99,7 +106,7 @@
     margin: 0 auto 2.5rem;
     font-weight: 400;
   }
-  
+
   .hero-location {
     display: inline-flex;
     align-items: center;
@@ -112,7 +119,7 @@
     border-radius: 50px;
     backdrop-filter: blur(10px);
   }
-  
+
   .scroll-hint {
     position: absolute;
     bottom: 2rem;
@@ -124,19 +131,19 @@
     opacity: 0.7;
     animation: bob 2s ease-in-out infinite;
   }
-  
+
   @keyframes bob {
     0%, 100% { transform: translateX(-50%) translateY(0); }
     50% { transform: translateX(-50%) translateY(8px); }
   }
-  
+
   /* Section styling */
   section {
     padding: 6rem 2rem;
     max-width: 1200px;
     margin: 0 auto;
   }
-  
+
   .section-label {
     font-family: 'Caveat', cursive;
     font-size: 1.3rem;
@@ -145,7 +152,7 @@
     transform: rotate(-1deg);
     display: inline-block;
   }
-  
+
   .section-title {
     font-family: 'Fraunces', serif;
     font-size: clamp(2rem, 5vw, 3.5rem);
@@ -154,7 +161,7 @@
     margin-bottom: 1rem;
     line-height: 1.1;
   }
-  
+
   .section-intro {
     font-family: 'Fraunces', serif;
     font-style: italic;
@@ -163,14 +170,14 @@
     max-width: 600px;
     margin-bottom: 3rem;
   }
-  
+
   /* Plants grid */
   .plants-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
     gap: 2rem;
   }
-  
+
   .plant-card {
     background: var(--cream-warm);
     border-radius: 16px;
@@ -180,19 +187,19 @@
     position: relative;
     box-shadow: 0 2px 8px rgba(0,0,0,0.04);
   }
-  
+
   .plant-card:hover {
     transform: translateY(-6px);
     box-shadow: 0 12px 30px rgba(45, 74, 53, 0.15);
   }
-  
+
   .plant-sign {
     padding: 1.8rem 1.5rem;
     min-height: 240px;
     display: flex;
     flex-direction: column;
     position: relative;
-    background-image: 
+    background-image:
       repeating-linear-gradient(
         0deg,
         transparent,
@@ -201,11 +208,11 @@
         rgba(0,0,0,0.03) 29px
       );
   }
-  
+
   .plant-card[data-color="mint"] .plant-sign { background-color: var(--sign-mint); }
   .plant-card[data-color="lime"] .plant-sign { background-color: var(--sign-lime); }
   .plant-card[data-color="green"] .plant-sign { background-color: var(--sign-green); }
-  
+
   .plant-name {
     font-family: 'Caveat', cursive;
     font-weight: 700;
@@ -215,14 +222,14 @@
     margin-bottom: 0.3rem;
     letter-spacing: 0.02em;
   }
-  
+
   .plant-variety {
     font-family: 'Caveat', cursive;
     font-size: 1.3rem;
     color: var(--ink);
     margin-bottom: 0.2rem;
   }
-  
+
   .plant-latin {
     font-family: 'Fraunces', serif;
     font-style: italic;
@@ -230,7 +237,7 @@
     color: var(--muted);
     margin-bottom: 1rem;
   }
-  
+
   .plant-teaser {
     font-family: 'Caveat', cursive;
     font-size: 1.15rem;
@@ -238,7 +245,7 @@
     color: var(--ink);
     flex: 1;
   }
-  
+
   .plant-price {
     position: absolute;
     top: 1.2rem;
@@ -248,7 +255,7 @@
     font-size: 1.5rem;
     color: var(--earth-dark);
   }
-  
+
   .plant-meta {
     padding: 1rem 1.5rem;
     background: white;
@@ -257,18 +264,18 @@
     align-items: center;
     font-size: 0.85rem;
   }
-  
+
   .plant-tag {
     color: var(--leaf);
     font-weight: 500;
   }
-  
+
   .read-more {
     font-family: 'Caveat', cursive;
     font-size: 1.1rem;
     color: var(--earth);
   }
-  
+
   /* Seasons section */
   .seasons {
     background: var(--cream-warm);
@@ -276,19 +283,19 @@
     max-width: none;
     padding: 6rem 2rem;
   }
-  
+
   .seasons-inner {
     max-width: 1200px;
     margin: 0 auto;
   }
-  
+
   .season-journal {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
     gap: 1.5rem;
     margin-top: 3rem;
   }
-  
+
   .journal-entry {
     background: white;
     padding: 2rem;
@@ -297,18 +304,18 @@
     position: relative;
     transition: transform 0.3s;
   }
-  
+
   .journal-entry:hover {
     transform: translateY(-3px);
   }
-  
+
   .journal-date {
     font-family: 'Caveat', cursive;
     font-size: 1.3rem;
     color: var(--leaf);
     margin-bottom: 0.5rem;
   }
-  
+
   .journal-title {
     font-family: 'Fraunces', serif;
     font-size: 1.25rem;
@@ -316,12 +323,12 @@
     margin-bottom: 0.8rem;
     color: var(--leaf-dark);
   }
-  
+
   .journal-text {
     color: var(--muted);
     font-size: 0.95rem;
   }
-  
+
   /* About section */
   .about {
     display: grid;
@@ -329,14 +336,14 @@
     gap: 4rem;
     align-items: center;
   }
-  
+
   .about-text p {
     font-family: 'Fraunces', serif;
     font-size: 1.1rem;
     margin-bottom: 1.2rem;
     color: var(--ink);
   }
-  
+
   .about-text p:first-of-type::first-letter {
     font-family: 'Fraunces', serif;
     font-size: 3.5rem;
@@ -346,7 +353,7 @@
     color: var(--leaf);
     font-weight: 500;
   }
-  
+
   .about-signature {
     font-family: 'Caveat', cursive;
     font-size: 2rem;
@@ -355,7 +362,7 @@
     transform: rotate(-3deg);
     display: inline-block;
   }
-  
+
   .about-visual {
     aspect-ratio: 1;
     background: linear-gradient(135deg, var(--sign-mint), var(--sign-lime));
@@ -367,7 +374,7 @@
     position: relative;
     overflow: hidden;
   }
-  
+
   .about-visual::before {
     content: '';
     position: absolute;
@@ -378,7 +385,7 @@
     background: radial-gradient(circle, rgba(74, 124, 89, 0.2) 0%, transparent 70%);
     border-radius: 50%;
   }
-  
+
   .philosophy-quote {
     font-family: 'Caveat', cursive;
     font-size: 2.5rem;
@@ -387,7 +394,7 @@
     position: relative;
     z-index: 2;
   }
-  
+
   .philosophy-quote::before {
     content: '"';
     font-size: 4rem;
@@ -397,7 +404,7 @@
     color: var(--leaf);
     opacity: 0.3;
   }
-  
+
   /* Modal */
   .modal-backdrop {
     position: fixed;
@@ -412,12 +419,12 @@
     opacity: 0;
     transition: opacity 0.3s;
   }
-  
+
   .modal-backdrop.active {
     display: flex;
     opacity: 1;
   }
-  
+
   .modal {
     background: var(--cream);
     border-radius: 20px;
@@ -429,14 +436,14 @@
     transform: scale(0.95);
     transition: transform 0.3s;
   }
-  
+
   .modal-backdrop.active .modal {
     transform: scale(1);
   }
-  
+
   .modal-header {
     padding: 3rem 2.5rem 2rem;
-    background-image: 
+    background-image:
       repeating-linear-gradient(
         0deg,
         transparent,
@@ -447,11 +454,11 @@
     border-radius: 20px 20px 0 0;
     position: relative;
   }
-  
+
   .modal[data-color="mint"] .modal-header { background-color: var(--sign-mint); }
   .modal[data-color="lime"] .modal-header { background-color: var(--sign-lime); }
   .modal[data-color="green"] .modal-header { background-color: var(--sign-green); }
-  
+
   .modal-close {
     position: absolute;
     top: 1.2rem;
@@ -468,11 +475,11 @@
     justify-content: center;
     transition: background 0.2s;
   }
-  
+
   .modal-close:hover {
     background: white;
   }
-  
+
   .modal-name {
     font-family: 'Caveat', cursive;
     font-weight: 700;
@@ -480,14 +487,14 @@
     line-height: 1;
     margin-bottom: 0.3rem;
   }
-  
+
   .modal-variety {
     font-family: 'Caveat', cursive;
     font-size: 1.4rem;
     color: var(--ink);
     margin-bottom: 0.3rem;
   }
-  
+
   .modal-latin {
     font-family: 'Fraunces', serif;
     font-style: italic;
@@ -495,7 +502,7 @@
     color: var(--earth-dark);
     margin-bottom: 1.5rem;
   }
-  
+
   .modal-price {
     position: absolute;
     top: 2rem;
@@ -505,15 +512,15 @@
     font-size: 1.8rem;
     color: var(--earth-dark);
   }
-  
+
   .modal-body {
     padding: 2rem 2.5rem 3rem;
   }
-  
+
   .modal-section {
     margin-bottom: 1.8rem;
   }
-  
+
   .modal-section-label {
     font-family: 'Caveat', cursive;
     font-size: 1rem;
@@ -523,14 +530,14 @@
     letter-spacing: 0.15em;
     font-weight: 600;
   }
-  
+
   .modal-section-content {
     font-family: 'Fraunces', serif;
     font-size: 1.05rem;
     color: var(--ink);
     line-height: 1.6;
   }
-  
+
   .modal-norwegian {
     font-style: italic;
     color: var(--muted);
@@ -539,7 +546,7 @@
     padding-left: 1rem;
     border-left: 2px solid var(--sign-mint);
   }
-  
+
   /* Footer */
   footer {
     background: var(--leaf-dark);
@@ -547,20 +554,20 @@
     padding: 4rem 2rem 2rem;
     text-align: center;
   }
-  
+
   .footer-title {
     font-family: 'Caveat', cursive;
     font-size: 2.5rem;
     margin-bottom: 0.5rem;
   }
-  
+
   .footer-text {
     font-family: 'Fraunces', serif;
     font-style: italic;
     opacity: 0.8;
     margin-bottom: 2rem;
   }
-  
+
   .footer-note {
     font-size: 0.85rem;
     opacity: 0.6;
@@ -568,13 +575,15 @@
     padding-top: 2rem;
     border-top: 1px solid rgba(255,255,255,0.1);
   }
-  
+
   @media (max-width: 768px) {
     .about { grid-template-columns: 1fr; }
     section { padding: 4rem 1.5rem; }
     .seasons { padding: 4rem 1.5rem; }
   }
 </style>
+</head>
+<body>
 
 <!-- HERO -->
 <section class="hero">
@@ -591,7 +600,7 @@
   <svg class="leaf-decoration bot-right" width="110" height="110" viewBox="0 0 100 100">
     <path d="M50,20 Q70,25 75,45 Q80,70 55,80 Q35,75 30,55 Q30,30 50,20Z" fill="#7fa68c"/>
   </svg>
-  
+
   <div class="hero-content">
     <div class="hero-greeting">velkommen ~ welcome</div>
     <h1 class="hero-title">Nora's<br><em>Greenhouse</em></h1>
@@ -611,7 +620,7 @@
   <div class="section-label">~ what's growing ~</div>
   <h2 class="section-title">In the greenhouse<br>this season</h2>
   <p class="section-intro">A collection of everything currently rooted, sprouting, or ripening. Click any sign to learn more — each with the original Norwegian notes alongside.</p>
-  
+
   <div class="plants-grid" id="plantsGrid"></div>
 </section>
 
@@ -621,7 +630,7 @@
     <div class="section-label">~ the seasons ~</div>
     <h2 class="section-title">A garden journal</h2>
     <p class="section-intro">Small notes from the greenhouse, across the turning year.</p>
-    
+
     <div class="season-journal">
       <div class="journal-entry">
         <div class="journal-date">Early Spring</div>
@@ -651,7 +660,7 @@
 <section id="about">
   <div class="section-label">~ about ~</div>
   <h2 class="section-title">Why I garden</h2>
-  
+
   <div class="about">
     <div class="about-text">
       <p>It started small — a few pots, a cherry tomato plant that did surprisingly well — and grew from there. Now the greenhouse holds more than I can eat, which is part of the point.</p>
@@ -798,7 +807,7 @@
       ]
     }
   ];
-  
+
   const grid = document.getElementById('plantsGrid');
   plants.forEach(p => {
     const card = document.createElement('div');
@@ -820,7 +829,7 @@
     `;
     grid.appendChild(card);
   });
-  
+
   function openModal(id) {
     const p = plants.find(x => x.id === id);
     if (!p) return;
@@ -830,7 +839,7 @@
     document.getElementById('modalVariety').textContent = p.variety;
     document.getElementById('modalLatin').textContent = p.latin;
     document.getElementById('modalPrice').textContent = p.price;
-    
+
     const body = document.getElementById('modalBody');
     body.innerHTML = p.sections.map(s => `
       <div class="modal-section">
@@ -839,21 +848,24 @@
         <div class="modal-norwegian">${s.no}</div>
       </div>
     `).join('');
-    
+
     document.getElementById('modalBackdrop').classList.add('active');
     document.body.style.overflow = 'hidden';
   }
-  
+
   function closeModal() {
     document.getElementById('modalBackdrop').classList.remove('active');
     document.body.style.overflow = '';
   }
-  
+
   document.getElementById('modalBackdrop').addEventListener('click', (e) => {
     if (e.target.id === 'modalBackdrop') closeModal();
   });
-  
+
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape') closeModal();
   });
 </script>
+
+</body>
+</html>
