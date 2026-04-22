@@ -1,1 +1,859 @@
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  
+  @import url('https://fonts.googleapis.com/css2?family=Caveat:wght@400;600;700&family=Fraunces:ital,wght@0,400;0,500;0,600;1,400&family=Inter:wght@300;400;500;600&display=swap');
+  
+  :root {
+    --leaf: #4a7c59;
+    --leaf-dark: #2d4a35;
+    --leaf-light: #7fa68c;
+    --cream: #faf7f0;
+    --cream-warm: #f3ede0;
+    --earth: #8b6f47;
+    --earth-dark: #5c4a30;
+    --sign-green: #c8e6c9;
+    --sign-mint: #a8d8c0;
+    --sign-lime: #d4e8a8;
+    --ink: #1a1a1a;
+    --muted: #6b7365;
+  }
+  
+  body {
+    font-family: 'Inter', sans-serif;
+    background: var(--cream);
+    color: var(--ink);
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+  
+  /* Hero */
+  .hero {
+    min-height: 100vh;
+    background: linear-gradient(135deg, #e8f0df 0%, #d4e3c8 50%, #c8dcb8 100%);
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+    overflow: hidden;
+  }
+  
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: 
+      radial-gradient(circle at 10% 20%, rgba(127, 166, 140, 0.15) 0%, transparent 40%),
+      radial-gradient(circle at 90% 80%, rgba(74, 124, 89, 0.15) 0%, transparent 40%);
+  }
+  
+  .leaf-decoration {
+    position: absolute;
+    opacity: 0.15;
+    pointer-events: none;
+  }
+  
+  .leaf-decoration.top-left { top: 5%; left: 5%; transform: rotate(-20deg); }
+  .leaf-decoration.top-right { top: 8%; right: 8%; transform: rotate(30deg); }
+  .leaf-decoration.bot-left { bottom: 10%; left: 10%; transform: rotate(200deg); }
+  .leaf-decoration.bot-right { bottom: 5%; right: 5%; transform: rotate(160deg); }
+  
+  .hero-content {
+    text-align: center;
+    position: relative;
+    z-index: 2;
+    max-width: 800px;
+  }
+  
+  .hero-greeting {
+    font-family: 'Caveat', cursive;
+    font-size: clamp(1.5rem, 3vw, 2rem);
+    color: var(--leaf-dark);
+    margin-bottom: 1rem;
+    transform: rotate(-2deg);
+    display: inline-block;
+  }
+  
+  .hero-title {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(3rem, 8vw, 6rem);
+    font-weight: 500;
+    line-height: 1;
+    color: var(--leaf-dark);
+    margin-bottom: 1.5rem;
+    letter-spacing: -0.02em;
+  }
+  
+  .hero-title em {
+    font-style: italic;
+    font-weight: 400;
+    color: var(--leaf);
+  }
+  
+  .hero-subtitle {
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-size: clamp(1.1rem, 2vw, 1.4rem);
+    color: var(--earth-dark);
+    max-width: 600px;
+    margin: 0 auto 2.5rem;
+    font-weight: 400;
+  }
+  
+  .hero-location {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-family: 'Caveat', cursive;
+    font-size: 1.3rem;
+    color: var(--earth);
+    background: rgba(255, 255, 255, 0.5);
+    padding: 0.5rem 1.5rem;
+    border-radius: 50px;
+    backdrop-filter: blur(10px);
+  }
+  
+  .scroll-hint {
+    position: absolute;
+    bottom: 2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    font-family: 'Caveat', cursive;
+    color: var(--leaf-dark);
+    font-size: 1.2rem;
+    opacity: 0.7;
+    animation: bob 2s ease-in-out infinite;
+  }
+  
+  @keyframes bob {
+    0%, 100% { transform: translateX(-50%) translateY(0); }
+    50% { transform: translateX(-50%) translateY(8px); }
+  }
+  
+  /* Section styling */
+  section {
+    padding: 6rem 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  
+  .section-label {
+    font-family: 'Caveat', cursive;
+    font-size: 1.3rem;
+    color: var(--leaf);
+    margin-bottom: 0.5rem;
+    transform: rotate(-1deg);
+    display: inline-block;
+  }
+  
+  .section-title {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    font-weight: 500;
+    color: var(--leaf-dark);
+    margin-bottom: 1rem;
+    line-height: 1.1;
+  }
+  
+  .section-intro {
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-size: 1.15rem;
+    color: var(--muted);
+    max-width: 600px;
+    margin-bottom: 3rem;
+  }
+  
+  /* Plants grid */
+  .plants-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 2rem;
+  }
+  
+  .plant-card {
+    background: var(--cream-warm);
+    border-radius: 16px;
+    overflow: hidden;
+    cursor: pointer;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+  }
+  
+  .plant-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 12px 30px rgba(45, 74, 53, 0.15);
+  }
+  
+  .plant-sign {
+    padding: 1.8rem 1.5rem;
+    min-height: 240px;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    background-image: 
+      repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 28px,
+        rgba(0,0,0,0.03) 28px,
+        rgba(0,0,0,0.03) 29px
+      );
+  }
+  
+  .plant-card[data-color="mint"] .plant-sign { background-color: var(--sign-mint); }
+  .plant-card[data-color="lime"] .plant-sign { background-color: var(--sign-lime); }
+  .plant-card[data-color="green"] .plant-sign { background-color: var(--sign-green); }
+  
+  .plant-name {
+    font-family: 'Caveat', cursive;
+    font-weight: 700;
+    font-size: 2rem;
+    color: var(--ink);
+    line-height: 1;
+    margin-bottom: 0.3rem;
+    letter-spacing: 0.02em;
+  }
+  
+  .plant-variety {
+    font-family: 'Caveat', cursive;
+    font-size: 1.3rem;
+    color: var(--ink);
+    margin-bottom: 0.2rem;
+  }
+  
+  .plant-latin {
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-size: 0.95rem;
+    color: var(--muted);
+    margin-bottom: 1rem;
+  }
+  
+  .plant-teaser {
+    font-family: 'Caveat', cursive;
+    font-size: 1.15rem;
+    line-height: 1.4;
+    color: var(--ink);
+    flex: 1;
+  }
+  
+  .plant-price {
+    position: absolute;
+    top: 1.2rem;
+    right: 1.2rem;
+    font-family: 'Caveat', cursive;
+    font-weight: 700;
+    font-size: 1.5rem;
+    color: var(--earth-dark);
+  }
+  
+  .plant-meta {
+    padding: 1rem 1.5rem;
+    background: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.85rem;
+  }
+  
+  .plant-tag {
+    color: var(--leaf);
+    font-weight: 500;
+  }
+  
+  .read-more {
+    font-family: 'Caveat', cursive;
+    font-size: 1.1rem;
+    color: var(--earth);
+  }
+  
+  /* Seasons section */
+  .seasons {
+    background: var(--cream-warm);
+    margin: 0;
+    max-width: none;
+    padding: 6rem 2rem;
+  }
+  
+  .seasons-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  
+  .season-journal {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+    margin-top: 3rem;
+  }
+  
+  .journal-entry {
+    background: white;
+    padding: 2rem;
+    border-radius: 12px;
+    border-left: 4px solid var(--leaf);
+    position: relative;
+    transition: transform 0.3s;
+  }
+  
+  .journal-entry:hover {
+    transform: translateY(-3px);
+  }
+  
+  .journal-date {
+    font-family: 'Caveat', cursive;
+    font-size: 1.3rem;
+    color: var(--leaf);
+    margin-bottom: 0.5rem;
+  }
+  
+  .journal-title {
+    font-family: 'Fraunces', serif;
+    font-size: 1.25rem;
+    font-weight: 500;
+    margin-bottom: 0.8rem;
+    color: var(--leaf-dark);
+  }
+  
+  .journal-text {
+    color: var(--muted);
+    font-size: 0.95rem;
+  }
+  
+  /* About section */
+  .about {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: center;
+  }
+  
+  .about-text p {
+    font-family: 'Fraunces', serif;
+    font-size: 1.1rem;
+    margin-bottom: 1.2rem;
+    color: var(--ink);
+  }
+  
+  .about-text p:first-of-type::first-letter {
+    font-family: 'Fraunces', serif;
+    font-size: 3.5rem;
+    float: left;
+    line-height: 0.9;
+    padding: 0.3rem 0.5rem 0 0;
+    color: var(--leaf);
+    font-weight: 500;
+  }
+  
+  .about-signature {
+    font-family: 'Caveat', cursive;
+    font-size: 2rem;
+    color: var(--leaf-dark);
+    margin-top: 1.5rem;
+    transform: rotate(-3deg);
+    display: inline-block;
+  }
+  
+  .about-visual {
+    aspect-ratio: 1;
+    background: linear-gradient(135deg, var(--sign-mint), var(--sign-lime));
+    border-radius: 20px;
+    padding: 3rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .about-visual::before {
+    content: '';
+    position: absolute;
+    top: -50px;
+    right: -50px;
+    width: 200px;
+    height: 200px;
+    background: radial-gradient(circle, rgba(74, 124, 89, 0.2) 0%, transparent 70%);
+    border-radius: 50%;
+  }
+  
+  .philosophy-quote {
+    font-family: 'Caveat', cursive;
+    font-size: 2.5rem;
+    line-height: 1.2;
+    color: var(--leaf-dark);
+    position: relative;
+    z-index: 2;
+  }
+  
+  .philosophy-quote::before {
+    content: '"';
+    font-size: 4rem;
+    position: absolute;
+    top: -2rem;
+    left: -1rem;
+    color: var(--leaf);
+    opacity: 0.3;
+  }
+  
+  /* Modal */
+  .modal-backdrop {
+    position: fixed;
+    inset: 0;
+    background: rgba(45, 74, 53, 0.6);
+    backdrop-filter: blur(8px);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 100;
+    padding: 2rem;
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+  
+  .modal-backdrop.active {
+    display: flex;
+    opacity: 1;
+  }
+  
+  .modal {
+    background: var(--cream);
+    border-radius: 20px;
+    max-width: 600px;
+    width: 100%;
+    max-height: 85vh;
+    overflow-y: auto;
+    position: relative;
+    transform: scale(0.95);
+    transition: transform 0.3s;
+  }
+  
+  .modal-backdrop.active .modal {
+    transform: scale(1);
+  }
+  
+  .modal-header {
+    padding: 3rem 2.5rem 2rem;
+    background-image: 
+      repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 28px,
+        rgba(0,0,0,0.04) 28px,
+        rgba(0,0,0,0.04) 29px
+      );
+    border-radius: 20px 20px 0 0;
+    position: relative;
+  }
+  
+  .modal[data-color="mint"] .modal-header { background-color: var(--sign-mint); }
+  .modal[data-color="lime"] .modal-header { background-color: var(--sign-lime); }
+  .modal[data-color="green"] .modal-header { background-color: var(--sign-green); }
+  
+  .modal-close {
+    position: absolute;
+    top: 1.2rem;
+    right: 1.2rem;
+    background: rgba(255,255,255,0.6);
+    border: none;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    font-size: 1.2rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.2s;
+  }
+  
+  .modal-close:hover {
+    background: white;
+  }
+  
+  .modal-name {
+    font-family: 'Caveat', cursive;
+    font-weight: 700;
+    font-size: 2.5rem;
+    line-height: 1;
+    margin-bottom: 0.3rem;
+  }
+  
+  .modal-variety {
+    font-family: 'Caveat', cursive;
+    font-size: 1.4rem;
+    color: var(--ink);
+    margin-bottom: 0.3rem;
+  }
+  
+  .modal-latin {
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-size: 1rem;
+    color: var(--earth-dark);
+    margin-bottom: 1.5rem;
+  }
+  
+  .modal-price {
+    position: absolute;
+    top: 2rem;
+    right: 4rem;
+    font-family: 'Caveat', cursive;
+    font-weight: 700;
+    font-size: 1.8rem;
+    color: var(--earth-dark);
+  }
+  
+  .modal-body {
+    padding: 2rem 2.5rem 3rem;
+  }
+  
+  .modal-section {
+    margin-bottom: 1.8rem;
+  }
+  
+  .modal-section-label {
+    font-family: 'Caveat', cursive;
+    font-size: 1rem;
+    color: var(--leaf);
+    margin-bottom: 0.3rem;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    font-weight: 600;
+  }
+  
+  .modal-section-content {
+    font-family: 'Fraunces', serif;
+    font-size: 1.05rem;
+    color: var(--ink);
+    line-height: 1.6;
+  }
+  
+  .modal-norwegian {
+    font-style: italic;
+    color: var(--muted);
+    margin-top: 0.5rem;
+    font-size: 0.95rem;
+    padding-left: 1rem;
+    border-left: 2px solid var(--sign-mint);
+  }
+  
+  /* Footer */
+  footer {
+    background: var(--leaf-dark);
+    color: var(--cream);
+    padding: 4rem 2rem 2rem;
+    text-align: center;
+  }
+  
+  .footer-title {
+    font-family: 'Caveat', cursive;
+    font-size: 2.5rem;
+    margin-bottom: 0.5rem;
+  }
+  
+  .footer-text {
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    opacity: 0.8;
+    margin-bottom: 2rem;
+  }
+  
+  .footer-note {
+    font-size: 0.85rem;
+    opacity: 0.6;
+    margin-top: 2rem;
+    padding-top: 2rem;
+    border-top: 1px solid rgba(255,255,255,0.1);
+  }
+  
+  @media (max-width: 768px) {
+    .about { grid-template-columns: 1fr; }
+    section { padding: 4rem 1.5rem; }
+    .seasons { padding: 4rem 1.5rem; }
+  }
+</style>
 
+<!-- HERO -->
+<section class="hero">
+  <svg class="leaf-decoration top-left" width="120" height="120" viewBox="0 0 100 100">
+    <path d="M20,50 Q30,20 50,30 Q70,40 60,60 Q50,80 30,70 Q10,60 20,50Z" fill="#4a7c59"/>
+    <path d="M20,50 Q35,35 50,30" stroke="#2d4a35" stroke-width="1" fill="none"/>
+  </svg>
+  <svg class="leaf-decoration top-right" width="100" height="100" viewBox="0 0 100 100">
+    <path d="M50,20 Q70,25 75,45 Q80,70 55,80 Q35,75 30,55 Q30,30 50,20Z" fill="#7fa68c"/>
+  </svg>
+  <svg class="leaf-decoration bot-left" width="140" height="140" viewBox="0 0 100 100">
+    <path d="M20,50 Q30,20 50,30 Q70,40 60,60 Q50,80 30,70 Q10,60 20,50Z" fill="#4a7c59"/>
+  </svg>
+  <svg class="leaf-decoration bot-right" width="110" height="110" viewBox="0 0 100 100">
+    <path d="M50,20 Q70,25 75,45 Q80,70 55,80 Q35,75 30,55 Q30,30 50,20Z" fill="#7fa68c"/>
+  </svg>
+  
+  <div class="hero-content">
+    <div class="hero-greeting">velkommen ~ welcome</div>
+    <h1 class="hero-title">Nora's<br><em>Greenhouse</em></h1>
+    <p class="hero-subtitle">A small patch of green in Norway, tended with curiosity and care. Herbs, vegetables, and the quiet pleasure of watching things grow.</p>
+    <div class="hero-location">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+        <path d="M12 2C8 2 5 5 5 9c0 5 7 13 7 13s7-8 7-13c0-4-3-7-7-7zm0 9a2 2 0 110-4 2 2 0 010 4z"/>
+      </svg>
+      Norge · Norway
+    </div>
+  </div>
+  <div class="scroll-hint">scroll down ↓</div>
+</section>
+
+<!-- WHAT'S GROWING -->
+<section id="growing">
+  <div class="section-label">~ what's growing ~</div>
+  <h2 class="section-title">In the greenhouse<br>this season</h2>
+  <p class="section-intro">A collection of everything currently rooted, sprouting, or ripening. Click any sign to learn more — each with the original Norwegian notes alongside.</p>
+  
+  <div class="plants-grid" id="plantsGrid"></div>
+</section>
+
+<!-- SEASONS -->
+<section class="seasons">
+  <div class="seasons-inner">
+    <div class="section-label">~ the seasons ~</div>
+    <h2 class="section-title">A garden journal</h2>
+    <p class="section-intro">Small notes from the greenhouse, across the turning year.</p>
+    
+    <div class="season-journal">
+      <div class="journal-entry">
+        <div class="journal-date">Early Spring</div>
+        <h3 class="journal-title">Seedlings awake</h3>
+        <p class="journal-text">The first tomatoes and paprika seedlings are up. Basil is sensitive to the cool spring nights — keeping them close to the warmth of the greenhouse centre.</p>
+      </div>
+      <div class="journal-entry">
+        <div class="journal-date">Late Spring</div>
+        <h3 class="journal-title">Ready to transplant</h3>
+        <p class="journal-text">Cherry tomatoes and cucumbers sized up nicely. Rucola and New Zealand spinach already giving first harvests. The spring onions look decorative enough to leave in the pots.</p>
+      </div>
+      <div class="journal-entry">
+        <div class="journal-date">Summer</div>
+        <h3 class="journal-title">Abundance</h3>
+        <p class="journal-text">The Cherry Baby tomatoes are living up to their name — genuinely sweet. Pinching the side shoots weekly. Cucumbers producing faster than I can pick them.</p>
+      </div>
+      <div class="journal-entry">
+        <div class="journal-date">Autumn</div>
+        <h3 class="journal-title">Winter prep</h3>
+        <p class="journal-text">Freezing New Zealand spinach for winter storage. Harvesting rhubarb. The Victoria variety really is hardy — svært hardfør, as the sign says.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="section-label">~ about ~</div>
+  <h2 class="section-title">Why I garden</h2>
+  
+  <div class="about">
+    <div class="about-text">
+      <p>It started small — a few pots, a cherry tomato plant that did surprisingly well — and grew from there. Now the greenhouse holds more than I can eat, which is part of the point.</p>
+      <p>There's something grounding about the rhythm of it. Seeds to seedlings to harvest, repeating each year but never quite the same. Some years the paprika is generous, some years the basil sulks through a cold spring.</p>
+      <p>I write on the plant signs by hand because it slows me down. Latin names, growing notes, what each plant likes. The signs are for me, really — but visitors seem to enjoy reading them too.</p>
+      <div class="about-signature">— Nora</div>
+    </div>
+    <div class="about-visual">
+      <div class="philosophy-quote">Grow slowly.<br>Watch closely.<br>Eat what ripens.</div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-title">Nora's Greenhouse</div>
+  <div class="footer-text">A hobby garden in Norway</div>
+  <div class="footer-note">Plant signs and photographs from the greenhouse · No plants for sale — just sharing the joy of growing</div>
+</footer>
+
+<!-- MODAL -->
+<div class="modal-backdrop" id="modalBackdrop">
+  <div class="modal" id="modal">
+    <div class="modal-header">
+      <button class="modal-close" onclick="closeModal()">×</button>
+      <div class="modal-name" id="modalName"></div>
+      <div class="modal-variety" id="modalVariety"></div>
+      <div class="modal-latin" id="modalLatin"></div>
+      <div class="modal-price" id="modalPrice"></div>
+    </div>
+    <div class="modal-body" id="modalBody"></div>
+  </div>
+</div>
+
+<script>
+  const plants = [
+    {
+      id: 'rucola',
+      name: 'Rucola',
+      variety: 'Rocket / Arugula',
+      latin: 'Eruca sativa',
+      price: '59,-',
+      color: 'mint',
+      teaser: 'Sharp, peppery leaves with hints of roasted chicken — a favourite in Italian kitchens.',
+      sections: [
+        { label: 'In the kitchen', en: 'Best in salads, but also pairs beautifully with rice, meat, and chicken dishes. Widely used throughout Italy.', no: 'Egner seg best i salater, men smaker også godt til ris, kjøtt og kyllingretter. Velkjent og mye brukt i Italia.' },
+        { label: 'Growing', en: 'Prefers a sheltered spot with light shade and moderately nutrient-rich soil that holds moisture.', no: 'Foretrekker et lunt voksested med lett skygge og middels næringsrik jord som holder på fuktigheten.' },
+        { label: 'Harvest', en: 'Pick leaves often and remove any flowers as they appear. Annual.', no: 'Høst blader hyppig av planten, og fjern eventuelle blomster. Ettårig.' }
+      ]
+    },
+    {
+      id: 'nzspinach',
+      name: 'New Zealand Spinach',
+      variety: 'Warrigal greens',
+      latin: 'Tetragonia tetragonoides',
+      price: '59,-',
+      color: 'mint',
+      teaser: 'Generous yields of nutrient-rich leaves — fresh, cooked, or steamed.',
+      sections: [
+        { label: 'In the kitchen', en: 'Use fresh, boiled, or steamed. The leaves freeze well for winter storage.', no: 'Brukes ferske, kokte eller stuede. Egner seg godt til å fryse for vinterlagring.' },
+        { label: 'Growing', en: 'A prolific producer that thrives with regular harvesting.', no: 'Gir rik avling med næringsrike blader. Høstes ofte og jevnlig.' },
+        { label: 'Lifecycle', en: 'Annual.', no: 'Ettårig.' }
+      ]
+    },
+    {
+      id: 'springonion',
+      name: 'Spring Onion',
+      variety: '"Purplette"',
+      latin: 'Allium cepa',
+      price: '35,-',
+      color: 'green',
+      teaser: 'Decorative and delicious — small purple-red bulbs, easy to grow anywhere.',
+      sections: [
+        { label: 'In the garden', en: 'Decorative and great-tasting. Grows happily in pots, planters, or straight in the ground.', no: 'Dekorativ og god på smak. Fin å dyrke i både krukker, kasser og på friland.' },
+        { label: 'Difficulty', en: 'Easy to grow — a good one for beginners.', no: 'Lettdyrket.' }
+      ]
+    },
+    {
+      id: 'cherrytomat',
+      name: 'Cherry Tomato',
+      variety: 'Cherry Baby',
+      latin: 'Solanum lycopersicum',
+      price: '59,-',
+      color: 'lime',
+      teaser: 'Incredibly sweet red cherry tomatoes with a generous harvest.',
+      sections: [
+        { label: 'Flavour', en: 'Red cherry tomatoes that are remarkably sweet. Produces a big harvest.', no: 'Røde cherrytomater som er utrolig søte på smak. Gir stor avling.' },
+        { label: 'Growing', en: 'Grow in a greenhouse, or outside in a warm, sheltered, sunny spot. Wants steady access to water and fertiliser.', no: 'Dyrkes i drivhus eller ute på en varm, lun og solrik plass. Vil ha jevn tilgang på vann og gjødsel.' },
+        { label: 'Care tip', en: 'Remember to pinch out the side shoots.', no: 'Husk å knipe sideskudd.' }
+      ]
+    },
+    {
+      id: 'paprika',
+      name: 'Paprika',
+      variety: 'Zlata',
+      latin: 'Capsicum annuum',
+      price: '59,-',
+      color: 'lime',
+      teaser: 'Cone-shaped fruits turning from waxy yellow to red as they ripen — mild and crisp.',
+      sections: [
+        { label: 'Flavour', en: 'Cone-shaped waxy yellow fruits that turn red at full ripeness. Mild and crisp. An early variety.', no: 'Kjegleformede voksgule frukter som går over i rødt ved full modning. Mild og sprø smak. Tidlig sort.' },
+        { label: 'Growing', en: 'Best in a greenhouse, but can also grow outside in a warm, sheltered, sunny place. Happy in pots. Needs steady access to water and nutrients.', no: 'Dyrkes helst i drivhus, men kan også dyrkes ute på en varm, lun og solrik plass. Fin å dyrke i krukker. Vil ha jevn tilgang på vann og næring.' }
+      ]
+    },
+    {
+      id: 'cucumber',
+      name: 'Cucumber',
+      variety: '"F1 Max"',
+      latin: 'Cucumis sativus',
+      price: '59,-',
+      color: 'mint',
+      teaser: 'A very generous harvest of crisp 30 cm cucumbers — resistant to powdery mildew.',
+      sections: [
+        { label: 'Harvest', en: 'Gives a very good yield of roughly 30 cm long cucumbers. Fresh, crisp flavour.', no: 'Gir veldig god avling med ca 30 cm lange agurker. Frisk og god smak.' },
+        { label: 'Growing', en: 'Biggest yields in a greenhouse, but also grows outdoors in a sheltered, warm, sunny spot. Wants good soil and steady water and fertiliser.', no: 'Gir størst avling i drivhus, men kan også dyrkes utendørs på en lun, varm og solrik plass. Vil ha god jord. Viktig med jevn tilgang på vann og gjødsel.' },
+        { label: 'Hardiness', en: 'Resistant to powdery mildew. Can be grown in containers.', no: 'Resistent mot meldugg. Kan dyrkes i krukker.' }
+      ]
+    },
+    {
+      id: 'basilikum',
+      name: 'Basil',
+      variety: 'Sweet basil',
+      latin: 'Ocimum basilicum',
+      price: '59,-',
+      color: 'lime',
+      teaser: 'The indispensable herb — for tomatoes, pesto, mozzarella, chicken, pasta. An essential.',
+      sections: [
+        { label: 'In the kitchen', en: 'Basil adds wonderful flavour to tomato dishes, salads, pesto, mozzarella, chicken, pasta, and more. An indispensable herb!', no: 'Basilikum setter nydelig smak på tomatretter, salater, pesto, mozarella, kylling, pasta osv. En uunværlig urt!' },
+        { label: 'Traditional uses', en: 'Said to be calming for stomach cramps, mucus-clearing, and mildly laxative. As a tea, reputed to help with cough and sore throat.', no: 'Medisinsk sies den å være beroligende ved magekramper, slimløsende og som et avførende middel. Som te skal den visstnok hjelpe mot hoste og sår hals.' },
+        { label: 'Growing', en: 'Needs a good, sheltered spot in the sun. Best grown in pots. Very sensitive to cool weather, especially in spring. Let it dry a little between waterings. Grown as an annual.', no: 'Krever en god og lun plass i solen. Best å dyrke i krukker. Den er veldig følsom mot kjølig vær, og da spesielt om våren. La den tørke litt mellom hver vanning. Dyrkes som ettårig.' }
+      ]
+    },
+    {
+      id: 'rhubarb',
+      name: 'Rhubarb',
+      variety: '"Victoria"',
+      latin: 'Rheum rhabarbarum',
+      price: '69,-',
+      color: 'mint',
+      teaser: 'One of Norway\'s most popular rhubarb varieties — reliably hardy and fast-growing.',
+      sections: [
+        { label: 'About this variety', en: 'This is one of the most widely grown rhubarb varieties in Norway. Red-green stalks with somewhat lower oxalic acid content than many other varieties.', no: 'Denne sorten er en av de mest dyrkede rabarbra-sortene her i Norge. Rødgrønne stilker med noe lavere oxalsyreinnhold enn mange andre sorter.' },
+        { label: 'Growing', en: 'Produces a very good harvest. Also fast-growing.', no: 'Gir svært god avling. Den er også hurtigvoksende.' },
+        { label: 'Hardiness', en: 'Very hardy.', no: 'Svært hardfør.' }
+      ]
+    }
+  ];
+  
+  const grid = document.getElementById('plantsGrid');
+  plants.forEach(p => {
+    const card = document.createElement('div');
+    card.className = 'plant-card';
+    card.dataset.color = p.color;
+    card.onclick = () => openModal(p.id);
+    card.innerHTML = `
+      <div class="plant-sign">
+        <div class="plant-price">${p.price}</div>
+        <div class="plant-name">${p.name}</div>
+        <div class="plant-variety">${p.variety}</div>
+        <div class="plant-latin">${p.latin}</div>
+        <div class="plant-teaser">${p.teaser}</div>
+      </div>
+      <div class="plant-meta">
+        <span class="plant-tag">from the greenhouse</span>
+        <span class="read-more">read more →</span>
+      </div>
+    `;
+    grid.appendChild(card);
+  });
+  
+  function openModal(id) {
+    const p = plants.find(x => x.id === id);
+    if (!p) return;
+    const modal = document.getElementById('modal');
+    modal.dataset.color = p.color;
+    document.getElementById('modalName').textContent = p.name;
+    document.getElementById('modalVariety').textContent = p.variety;
+    document.getElementById('modalLatin').textContent = p.latin;
+    document.getElementById('modalPrice').textContent = p.price;
+    
+    const body = document.getElementById('modalBody');
+    body.innerHTML = p.sections.map(s => `
+      <div class="modal-section">
+        <div class="modal-section-label">${s.label}</div>
+        <div class="modal-section-content">${s.en}</div>
+        <div class="modal-norwegian">${s.no}</div>
+      </div>
+    `).join('');
+    
+    document.getElementById('modalBackdrop').classList.add('active');
+    document.body.style.overflow = 'hidden';
+  }
+  
+  function closeModal() {
+    document.getElementById('modalBackdrop').classList.remove('active');
+    document.body.style.overflow = '';
+  }
+  
+  document.getElementById('modalBackdrop').addEventListener('click', (e) => {
+    if (e.target.id === 'modalBackdrop') closeModal();
+  });
+  
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') closeModal();
+  });
+</script>
